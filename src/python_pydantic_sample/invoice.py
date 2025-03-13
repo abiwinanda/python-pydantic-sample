@@ -4,7 +4,7 @@ from .user import User
 from decimal import Decimal
 from pydantic import BaseModel, EmailStr, model_validator
 
-class InvoiceStatus(str, Enum): 
+class InvoiceStatus(str, Enum):
     DRAFT = "draft"
     UNPAID = "unpaid"
     PAID = "paid"
