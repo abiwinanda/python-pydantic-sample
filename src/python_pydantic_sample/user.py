@@ -6,8 +6,15 @@ class User(BaseModel):
     account_id: int
 
     @field_validator("account_id")
-    def validate_account_id(cls, value):
-        if value <= 0:
-            raise ValueError(f"account_id must be positive: {value}")
+    def validate_account_id(cls, account_id):
+        if account_id <= 0:
+            raise ValueError(f"account_id must be positive: {account_id}")
         
-        return value
+        return account_id
+    
+    @field_validator("name")
+    def validate_name_length(cls, name):
+        if len(name) > 50:
+            raise ValueError(f"name length must be less than or equal to 50")
+        
+        return name
