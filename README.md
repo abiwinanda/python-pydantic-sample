@@ -21,7 +21,7 @@ poetry install
 
 ## Covered Features in this Sample Project
 
-The sample project includes various examples of how to use Pydantic for data validations. You can test the examples by running the projet and exploring the `main.py` files.
+The sample project includes various examples of how to use Pydantic for data validations. You can test the examples by running the projet and exploring the [main.py](https://github.com/abiwinanda/python-pydantic-sample/blob/master/src/python_pydantic_sample/main.py) files.
 
 ```sh
 # This will run main.py file
