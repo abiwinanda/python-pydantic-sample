@@ -1,6 +1,11 @@
+from .invoice import Invoice
 from .user import User
 
 def main():
+    create_users()
+    create_invoices()
+
+def create_users():
     # Creating user by calling User()
     user1 = User(
         name="user1",
@@ -76,4 +81,84 @@ def main():
         )
     except ValueError as e:
         print(e.errors())
+        print()
+
+def create_invoices():
+    customer = User(
+        name="customer",
+        email="customer@gmail.com",
+        account_id=1
+    )
+
+    # Create a valid invoice
+    valid_invoice = Invoice(
+        description="Netflix monthly fee",
+        customer=customer,
+        # or Decimal("24.99") also works
+        amount="24.99",
+        status="unpaid"
+    )
+
+    print(valid_invoice.model_dump_json())
+    print()
+
+    # Create an invalid invoices
+    try:
+        Invoice(
+            description="Netflix monthly fee",
+            customer=customer,
+            amount="24.99",
+            # invalid status (not a value of InvoiceStatus enum)
+            status="open"
+        )
+    except ValueError as e:
+        print(e.errors())
+        print()
+
+    try:
+        Invoice(
+            description="Netflix monthly fee",
+            customer=customer,
+            # invalid amount (not numerical)
+            amount="aaa",
+            status="draft"
+        )
+    except ValueError as e:
+        print(e.errors())
+        print()
+
+    try:
+        Invoice(
+            description="Netflix monthly fee",
+            # invalid customer (not a User object)
+            customer=123,
+            amount="5000",
+            status="draft"
+        )
+    except ValueError as e:
+        print(e.errors())
+        print()
+
+    try:
+        Invoice(
+            # invalid description (empty description)
+            description=None,
+            customer=customer,
+            amount="5000",
+            status="draft"
+        )
+    except ValueError as e:
+        print(e.errors())
+        print()
+
+    try:
+        Invoice(
+            description="Netflix monthly fee",
+            # invalid customer (must not be null if status is not draft)
+            customer=None,
+            amount="5000",
+            status="unpaid"
+        )
+    except ValueError as e:
+        print(e)
         print()
